@@ -26,7 +26,7 @@ class Program
         RunMenu(context);
     }
 
-    static void RunMenu(BookstoreContext context)
+    static void RunMenu(BookstoreContext context) // HUVUDMENY
     {
         bool isRunning = true;
         while (isRunning)
@@ -73,12 +73,12 @@ class Program
     static void ListAllBooks(BookstoreContext context)
     {
         Console.WriteLine("\n--- BOKLISTA ---");
-        var books = context.Books
+        var books = context.Books // Hämta alla böcker inklusive författare och genre
             .Include(b => b.Author)
             .Include(b => b.Genre)
             .ToList();
 
-        foreach (var b in books)
+        foreach (var b in books) // Loopa igenom och skriv ut varje bok med författare
         {
             Console.WriteLine($"ID: {b.BookId} | Titel: {b.Title} | Författare: {b.Author.FirstName} {b.Author.LastName} | Pris: {b.Price:C}");
         }
@@ -88,16 +88,16 @@ class Program
     static void ListAllCustomers(BookstoreContext context)
     {
         Console.WriteLine("\n--- KUNDREGISTER ---");
-        var customers = context.Customers.ToList();
+        var customers = context.Customers.ToList(); // Hämta alla kunder
 
-        foreach (var c in customers)
+        foreach (var c in customers) // Loopa igenom och skriv ut varje kund
         {
             Console.WriteLine($"ID: {c.CustomerId} | Namn: {c.FirstName} {c.LastName} | E-post: {c.Email}");
         }
     }
 
     // VG-KRAV: INSERT (Bonus)
-    static void AddNewBook(BookstoreContext context)
+    static void AddNewBook(BookstoreContext context) 
     {
         Console.WriteLine("\n--- LÄGG TILL NY BOK ---");
 
@@ -128,8 +128,8 @@ class Program
             StockQuantity = 10
         };
 
-        context.Books.Add(newBook);
-        context.SaveChanges();
+        context.Books.Add(newBook); // Lägg till den nya boken i DbSet
+        context.SaveChanges(); // Spara ändringarna till databasen
 
         Console.WriteLine($"\nKLART! '{title}' har lagts till i databasen.");
     }

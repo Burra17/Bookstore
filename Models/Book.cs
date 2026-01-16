@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bookstore.Models;
 
-public partial class Book
+public partial class Book // Representerar en bok i bokhandeln
 {
     public int BookId { get; set; }
 
@@ -19,9 +19,9 @@ public partial class Book
 
     public int GenreId { get; set; }
 
-    public virtual Author Author { get; set; } = null!;
+    public virtual Author Author { get; set; } = null!; // Navigationsegenskap till författaren
 
-    public virtual Genre Genre { get; set; } = null!;
+    public virtual Genre Genre { get; set; } = null!; // Navigationsegenskap till genren
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>(); // Navigationsegenskap till orderrader som innehåller denna bok
 }

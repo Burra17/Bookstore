@@ -4,30 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Models;
 
-public partial class BookstoreContext : DbContext
+public partial class BookstoreContext : DbContext // DbContext för Bookstore-databasen
 {
-    public BookstoreContext()
+    public BookstoreContext() // Parameterlös konstruktor
     {
     }
 
-    public BookstoreContext(DbContextOptions<BookstoreContext> options)
+    public BookstoreContext(DbContextOptions<BookstoreContext> options) // Konstruktor med DbContextOptions
         : base(options)
     {
     }
 
-    public virtual DbSet<Author> Authors { get; set; }
+    public virtual DbSet<Author> Authors { get; set; } // DbSet för författare
 
-    public virtual DbSet<Book> Books { get; set; }
+    public virtual DbSet<Book> Books { get; set; } // DbSet för böcker
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Customer> Customers { get; set; } // DbSet för kunder
 
-    public virtual DbSet<Genre> Genres { get; set; }
+    public virtual DbSet<Genre> Genres { get; set; } // DbSet för genrer
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public virtual DbSet<Order> Orders { get; set; } // DbSet för ordrar
 
-    public virtual DbSet<OrderItem> OrderItems { get; set; }
+    public virtual DbSet<OrderItem> OrderItems { get; set; } // DbSet för orderrader
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) // Konfiguration av DbContext
     {
         // Vi lämnar denna tom eller låter den vara if-kontrollerad.
         // Konfigurationen kommer nu ske utifrån (i Program.cs).
@@ -37,9 +37,9 @@ public partial class BookstoreContext : DbContext
         }
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder) // Modellskapande och konfiguration
     {
-        modelBuilder.Entity<Author>(entity =>
+        modelBuilder.Entity<Author>(entity => // Konfiguration för Author-entiteten
         {
             entity.HasKey(e => e.AuthorId).HasName("PK__Authors__70DAFC1416A7A631");
 
@@ -48,7 +48,7 @@ public partial class BookstoreContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Book>(entity =>
+        modelBuilder.Entity<Book>(entity => // Konfiguration för Book-entiteten
         {
             entity.HasKey(e => e.BookId).HasName("PK__Books__3DE0C227CA1B16BA");
 
@@ -74,7 +74,7 @@ public partial class BookstoreContext : DbContext
                 .HasConstraintName("FK_Books_Genres");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<Customer>(entity => // Konfiguration för Customer-entiteten
         {
             entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B8FC5D7B8B");
 
@@ -89,7 +89,7 @@ public partial class BookstoreContext : DbContext
                 .HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<Genre>(entity =>
+        modelBuilder.Entity<Genre>(entity => // Konfiguration för Genre-entiteten
         {
             entity.HasKey(e => e.GenreId).HasName("PK__Genres__0385055E9811E7AE");
 
@@ -99,7 +99,7 @@ public partial class BookstoreContext : DbContext
             entity.Property(e => e.GenreName).HasMaxLength(30);
         });
 
-        modelBuilder.Entity<Order>(entity =>
+        modelBuilder.Entity<Order>(entity => // Konfiguration för Order-entiteten
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF1A207328");
 
@@ -115,7 +115,7 @@ public partial class BookstoreContext : DbContext
                 .HasConstraintName("FK_Orders_Customers");
         });
 
-        modelBuilder.Entity<OrderItem>(entity =>
+        modelBuilder.Entity<OrderItem>(entity => // Konfiguration för OrderItem-entiteten
         {
             entity.HasKey(e => e.OrderItemId).HasName("PK__OrderIte__57ED06A18E9F9160");
 
@@ -135,8 +135,8 @@ public partial class BookstoreContext : DbContext
                 .HasConstraintName("FK_OrderItems_Orders");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        OnModelCreatingPartial(modelBuilder); // Anropar den partiella metoden för ytterligare konfiguration
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder); // Partiell metod för ytterligare modellkonfiguration
 }
