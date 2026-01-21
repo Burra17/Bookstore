@@ -6,6 +6,10 @@ GO
 INSERT INTO Customers (FirstName, LastName, Email)
 VALUES ('Niklas', 'Zennström', 'niklas@skype.com');
 
+-- Lägg till en test-kund för att kunna demonstrera DELETE senare
+INSERT INTO Customers (FirstName, LastName, Email)
+VALUES ('André', 'Testsson', 'andre@gmail.com');
+
 
 -- 2. Lägg till en ny bok (Huvudtabell 2)
 -- Vi använder ett AuthorID och GenreID som vi vet existerar (från SeedData)
